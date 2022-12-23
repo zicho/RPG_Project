@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Helpers;
 
 namespace Core;
@@ -26,10 +28,20 @@ public class FiniteStateMachine<T> where T : Enum
         }
     }
 
-    public void SetState(T newState, string infoText) {
+    public void SetState(T newState, string infoText)
+    {
         CurrentState = newState;
         InfoText = infoText;
+        History.Add(new StateHistory(newState, infoText));
     }
+
+    public void SetState(StateHistory history)
+    {
+        CurrentState = history.State;
+        InfoText = history.InfoText;
+    }
+
+    public List<StateHistory> History { get; set; }
 
     public T PrevState { get; set; }
 
@@ -39,9 +51,18 @@ public class FiniteStateMachine<T> where T : Enum
         InfoText = infoText;
     }
 
+    public void GoBackToPrevState() {
+        SetState(History.First());
+    }
+
     public class StateHistory
     {
         public T State { get; set; }
         public string InfoText { get; set; }
+
+        public StateHistory(T state, string infoText) {
+            State = state;
+            InfoText = infoText;
+        }
     }
 }

@@ -27,14 +27,14 @@ public partial class MainBattleHandler : Control
 
     public override void _Ready()
     {
+        var hud = GetNode<VBoxContainer>("Character_HUDS");
+
         if (FindChild("InfoLabel") is Label infoLabel)
         {
             UiHandler.InfoLabel = infoLabel;
 
             UiHandler.SetInfoText(InfoMessages.CHOOSE_CHARACTER);
         }
-
-        var hud = GetNode<VBoxContainer>("Character_HUDS");
 
         BattleState = new FiniteStateMachine<BattleStateEnum>(BattleStateEnum.SelectCharacter, InfoMessages.CHOOSE_CHARACTER);
 
@@ -65,16 +65,16 @@ public partial class MainBattleHandler : Control
             {
                 _marker.GetTargetInfo();
 
-                BattleState.SetState(BattleStateEnum.WaitingForCharacterAction, InfoMessages.CHARACTER_ACTION_QUERY);
+                BattleState.SetState(BattleStateEnum.WaitingForCharacterAction, string.Format(InfoMessages.CHARACTER_ACTION_QUERY, "pwepimne"));
             }
 
 
         }
 
-        // if (Input.IsActionJustPressed("ui_cancel"))
-        // {
-        //     BattleState.GoBackToPrevState();
-        // }
+        if (Input.IsActionJustPressed("ui_cancel"))
+        {
+            BattleState.GoBackToPrevState();
+        }
 
         // if (Input.IsActionJustPressed("ui_cancel"))
         // {
