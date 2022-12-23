@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkdxbxj6grd5q"]
+
+[ext_resource type="Texture2D" uid="uid://bhbaurdrgyw4" path="res://gfx/battleback1_0.png" id="1_67s8c"]
+[ext_resource type="PackedScene" uid="uid://lu8p4jffsvl3" path="res://entities/character.tscn" id="2_l7axr"]
+
+[node name="Battle" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(1.04348, 1.08213)
+texture = ExtResource("1_67s8c")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Character" parent="." instance=ExtResource("2_l7axr")]
+position = Vector2(736, 288)
+
+[node name="Character2" parent="." instance=ExtResource("2_l7axr")]
+position = Vector2(736, 416)
+
+[node name="Character3" parent="." instance=ExtResource("2_l7axr")]
+position = Vector2(864, 288)
+
+[node name="Character4" parent="." instance=ExtResource("2_l7axr")]
+position = Vector2(864, 416)
