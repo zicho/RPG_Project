@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccim0ltdcgu6k"]
+[gd_scene load_steps=8 format=3 uid="uid://ccim0ltdcgu6k"]
 
 [ext_resource type="Texture2D" uid="uid://bhbaurdrgyw4" path="res://gfx/battleback1_0.png" id="1_4hetg"]
 [ext_resource type="Script" path="res://core/MainBattleHandler.cs" id="1_jj6qy"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://kd48xavski73" path="res://entities/enemy.tscn" id="3_24mbn"]
 [ext_resource type="Script" path="res://core/CharacterHudHandler.cs" id="6_gs63o"]
 [ext_resource type="PackedScene" uid="uid://jm84bxp5ursp" path="res://character_hud.tscn" id="6_mdqt7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1vhja"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -25,6 +27,7 @@ metadata/_edit_lock_ = true
 scale = Vector2(1.04348, 1.04348)
 texture = ExtResource("1_4hetg")
 centered = false
+metadata/_edit_lock_ = true
 
 [node name="Players" type="Node2D" parent="Scene"]
 
@@ -44,6 +47,7 @@ position = Vector2(192, 416)
 position = Vector2(448, 352)
 
 [node name="Character_HUDS" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -58,27 +62,33 @@ size_flags_vertical = 3
 script = ExtResource("6_gs63o")
 
 [node name="CharacterHUD" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 170.0
-offset_bottom = 136.0
+layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="CharacterHUD3" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 140.0
-offset_right = 170.0
-offset_bottom = 276.0
+layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="CharacterHUD2" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 280.0
-offset_right = 170.0
-offset_bottom = 416.0
+layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
+
+[node name="InfoPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 96.0
+offset_top = 32.0
+offset_right = -288.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="InfoLabel" type="Label" parent="InfoPanel"]
+layout_mode = 2
+text = "What will PlayerName do?"
+label_settings = SubResource("LabelSettings_1vhja")
+horizontal_alignment = 1
+vertical_alignment = 1

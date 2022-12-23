@@ -28,6 +28,7 @@ public partial class CharacterHudHandler : VBoxContainer, ICharacterHUD
 		foreach(var character in characters) {
     		var hud = (CharacterHud)characterHudScene.Instantiate();
 			hud.SizeFlagsHorizontal = (int)SizeFlags.ExpandFill;
+			hud.SizeFlagsVertical= (int)SizeFlags.Expand;
     		AddChild(hud);
 			hud.SetupHud(character);
 		}
