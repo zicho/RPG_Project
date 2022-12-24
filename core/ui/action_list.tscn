@@ -11,5 +11,4 @@ grow_vertical = 2
 script = ExtResource("1_47w1i")
 
 [node name="ItemList" type="ItemList" parent="."]
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 2

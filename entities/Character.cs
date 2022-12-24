@@ -8,13 +8,12 @@ using Helpers;
 
 namespace Entities;
 
-public partial class Character : CharacterBase
+public partial class Character : ActorBase
 {
-    public new List<IAction> Actions => new() {
+	public List<IAction> Actions { get; set; } = new() {
         new Attack(),
         new Defend(),
-        new UseItem(),
-        new Escape(),
+        new UseItem()
     };
 
     public override void _Ready()
@@ -22,7 +21,7 @@ public partial class Character : CharacterBase
 		base._Ready();
 		ActorName = NameGenerator.GetRandomName();
 		AddToGroup(Groups.CHARACTERS);
-		GD.Print(Actions.Count);
+		GD.Print(ActorName + " has " + Actions.Count + " actions!");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

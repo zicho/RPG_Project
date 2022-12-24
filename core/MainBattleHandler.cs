@@ -1,9 +1,11 @@
 using Constants;
 using Entities;
+using Entities.Base;
 using Entities.Interfaces;
 using Godot;
 using Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tools;
 using UI;
@@ -14,7 +16,7 @@ public partial class MainBattleHandler : Control
 	// public BattleStateEnum BattleState { get; set; } = BattleStateEnum.SelectCharacter;
 
 	private Marker _marker;
-	private ICharacter _activeCharacter;
+	private Character _activeCharacter;
 	private ActionList _actionList;
 
 	public FiniteStateMachine<BattleStateEnum> BattleUiState { get; private set; }
@@ -57,9 +59,15 @@ public partial class MainBattleHandler : Control
 		var players = GetTree().GetNodesInGroup(Groups.CHARACTERS);
 		EmitSignal(nameof(AddCharactersToHud), players);
 
-		_marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.CHARACTERS), this);
+		var selectableActors  = new List<Character>();
 
+		foreach(var c in GetTree().GetNodesInGroup(Groups.CHARACTERS)) {
+			var actor = c as Character;
+			GD.Print("Main: " + actor.Actions.Count);
+			selectableActors.Add(actor);
+		}
 
+		_marker = UiHandler.CreateMarker(selectableActors, this);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -80,17 +88,17 @@ public partial class MainBattleHandler : Control
 			if (Input.IsActionJustPressed("ui_accept"))
 			{
 				_activeCharacter = _marker.GetCharacter();
-
-                GD.Print(_activeCharacter.ActorName);
-                GD.Print(_activeCharacter.Actions);
-
 				BattleUiState.SetState(BattleStateEnum.WaitingForCharacterAction, string.Format(InfoMessages.CHARACTER_ACTION_QUERY, _activeCharacter.ActorName));
+				_actionList.Visible = true;
+				_actionList.SetActions(_activeCharacter.Actions);
+
+                GD.Print(_activeCharacter.Actions.Count);
 			}
 		}
-		else if (BattleUiState.CurrentState == BattleStateEnum.WaitingForCharacterAction) {
+		else if (BattleUiState.CurrentState == BattleStateEnum.WaitingForCharacterAction)
+		{
 			_marker.Visible = false;
-			_actionList.Visible = true;
-			_actionList.SetActions(_activeCharacter.Actions);
+
 		}
 
 		if (Input.IsActionJustPressed("ui_cancel"))

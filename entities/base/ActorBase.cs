@@ -5,20 +5,13 @@ using Entities.Interfaces;
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Entities.Base;
 
 public abstract partial class ActorBase : Node2D, IActor
 {
     public string ActorName { get; set; } = "actor_name_unset";
-
-    public List<IAction> Actions => new() {
-        new Attack(),
-        new Defend(),
-        new UseItem(),
-        new Escape(),
-    };
+    public List<IAction> Actions { get; set; } = new();
 
     public override void _Ready()
     {

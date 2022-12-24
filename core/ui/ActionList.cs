@@ -27,11 +27,9 @@ public partial class ActionList : PanelContainer
     public void SetActions(List<IAction> actions)
     {
         ItemList.Clear();
-		GD.Print(actions.Count);
 
         foreach (var action in actions)
         {
-			GD.Print(action.Name);
             ItemList.AddItem(action.Name);
         }
     }

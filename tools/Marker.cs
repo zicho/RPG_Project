@@ -1,15 +1,18 @@
 using Constants;
+using Entities;
+using Entities.Base;
 using Entities.Interfaces;
 using Godot;
 using Helpers;
 using System;
+using System.Collections.Generic;
 
 namespace Tools;
 public partial class Marker : Node2D
 {
     // Called when the node enters the scene tree for the first time.
 
-    public Godot.Collections.Array<Node> Targets { get; set; }
+    public List<Character> Targets { get; set; }
     private int _targetIndex = 0;
 
     public override void _Ready()
@@ -58,6 +61,6 @@ public partial class Marker : Node2D
         MarkTarget(Targets[_targetIndex]);
     }
 
-    public IActor GetActor() => Targets[_targetIndex] as IActor;
-	public ICharacter GetCharacter() => Targets[_targetIndex] as ICharacter;
+    public IActor GetActor() => Targets[_targetIndex];
+	public Character GetCharacter() => Targets[_targetIndex] as Character;
 }

@@ -7,5 +7,5 @@ namespace Entities.Interfaces;
 public interface IActor
 {
     string ActorName { get; set; }
-    List<IAction> Actions { get; }
+    List<IAction> Actions { get; set;}
 }
