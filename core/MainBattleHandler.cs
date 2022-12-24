@@ -103,6 +103,11 @@ public partial class MainBattleHandler : Control
             {
                 _actionList.NextItem();
             }
+            else if (Input.IsActionJustPressed("ui_accept"))
+            {
+                // _actionList.ChooseAction();
+                UiHandler.CreateMarker();
+            }
         }
 
         if (Input.IsActionJustPressed("ui_cancel"))
