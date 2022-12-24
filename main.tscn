@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccim0ltdcgu6k"]
+[gd_scene load_steps=9 format=3 uid="uid://ccim0ltdcgu6k"]
 
 [ext_resource type="Texture2D" uid="uid://bhbaurdrgyw4" path="res://gfx/battleback1_0.png" id="1_4hetg"]
 [ext_resource type="Script" path="res://core/MainBattleHandler.cs" id="1_jj6qy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://kd48xavski73" path="res://entities/enemy.tscn" id="3_24mbn"]
 [ext_resource type="Script" path="res://core/CharacterHudHandler.cs" id="6_gs63o"]
 [ext_resource type="PackedScene" uid="uid://jm84bxp5ursp" path="res://character_hud.tscn" id="6_mdqt7"]
+[ext_resource type="PackedScene" uid="uid://l263bon6q7ib" path="res://core/ui/action_hud.tscn" id="7_v1hiy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1vhja"]
 
@@ -45,6 +46,17 @@ position = Vector2(192, 416)
 
 [node name="Enemy3" parent="Scene" instance=ExtResource("3_24mbn")]
 position = Vector2(448, 352)
+
+[node name="StateInfoLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 96.0
+offset_right = 896.0
+offset_bottom = 122.0
+text = "State"
+label_settings = SubResource("LabelSettings_1vhja")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Character_HUDS" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -92,3 +104,10 @@ text = "What will PlayerName do?"
 label_settings = SubResource("LabelSettings_1vhja")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ActionHUD" parent="." instance=ExtResource("7_v1hiy")]
+layout_mode = 1
+offset_left = 544.0
+offset_top = 192.0
+offset_right = -480.0
+offset_bottom = -296.0

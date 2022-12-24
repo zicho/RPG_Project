@@ -58,11 +58,6 @@ public partial class Marker : Node2D
         MarkTarget(Targets[_targetIndex]);
     }
 
-    public void GetTargetInfo()
-    {
-        var targetActor = Targets[_targetIndex] as ICharacter;
-		GD.Print(targetActor);
-        GD.Print(targetActor.ActorName);
-		UiHandler.SetInfoText(string.Format(InfoMessages.CHARACTER_ACTION_QUERY, targetActor.ActorName));
-    }
+    public IActor GetActor() => Targets[_targetIndex] as IActor;
+	public IActor GetCharacter() => Targets[_targetIndex] as ICharacter;
 }

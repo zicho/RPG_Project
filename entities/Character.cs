@@ -1,12 +1,19 @@
+using System.Collections.Generic;
 using Constants;
+using Entities.Actions;
 using Entities.Base;
-using Entities.Interfaces;
 using Helpers;
 
 namespace Entities;
 
 public partial class Character : CharacterBase
 {
+	public List<IAction> Actions = new() {
+		new Attack(),
+		new Defend(),
+		new UseItem(),
+		new Escape(),
+	};
     public override void _Ready()
 	{
 		base._Ready();

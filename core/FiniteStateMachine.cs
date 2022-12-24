@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Helpers;
 
 namespace Core;
@@ -28,31 +29,43 @@ public class FiniteStateMachine<T> where T : Enum
         }
     }
 
-    public void SetState(T newState, string infoText)
+    public void SetState(T newState, string infoText, bool addToHistory = true)
     {
         CurrentState = newState;
         InfoText = infoText;
-        History.Add(new StateHistory(newState, infoText));
+
+        if (addToHistory) History.Add(new StateHistory(newState, infoText));
+        UiHandler.SetStateInfoText(_currentState.ToString());
+
+        // GD.Print("State is " + _currentState);
+        // GD.Print("State history " + History.Count);
     }
 
-    public void SetState(StateHistory history)
+    public void SetState(StateHistory history, bool addToHistory = true)
     {
-        CurrentState = history.State;
-        InfoText = history.InfoText;
+        SetState(
+            history.State,
+            history.InfoText,
+            addToHistory: addToHistory);
     }
 
-    public List<StateHistory> History { get; set; }
+    public List<StateHistory> History { get; set; } = new List<StateHistory>();
 
     public T PrevState { get; set; }
 
     public FiniteStateMachine(T initialState, string infoText)
     {
-        CurrentState = initialState;
-        InfoText = infoText;
+        SetState(initialState, infoText);
     }
 
-    public void GoBackToPrevState() {
-        SetState(History.First());
+    public void GoBackToPrevState()
+    {
+        if(History.Count == 1) return;
+        GD.Print("Going back!");
+        GD.Print("State history " + History.Count);
+        History.RemoveAt(History.Count - 1);
+        GD.Print("State history " + History.Count);
+        SetState(History[^1], addToHistory: false);
     }
 
     public class StateHistory
@@ -60,7 +73,8 @@ public class FiniteStateMachine<T> where T : Enum
         public T State { get; set; }
         public string InfoText { get; set; }
 
-        public StateHistory(T state, string infoText) {
+        public StateHistory(T state, string infoText)
+        {
             State = state;
             InfoText = infoText;
         }
