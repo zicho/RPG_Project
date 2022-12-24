@@ -6,16 +6,16 @@ using System.Collections.Generic;
 
 namespace UI;
 
-public partial class ActionHud : PanelContainer
+public partial class ActionList : PanelContainer
 {
-    public ItemList ActionList { get; private set; }
+    public ItemList ItemList { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if (FindChild("ActionList") is ItemList actionList)
+        if (FindChild("ItemList") is ItemList actionList)
         {
-            ActionList = actionList;
+            ItemList = actionList;
         }
     }
 
@@ -26,11 +26,13 @@ public partial class ActionHud : PanelContainer
 
     public void SetActions(List<IAction> actions)
     {
-        ActionList.Clear();
+        ItemList.Clear();
+		GD.Print(actions.Count);
 
         foreach (var action in actions)
         {
-            ActionList.AddItem(action.Name);
+			GD.Print(action.Name);
+            ItemList.AddItem(action.Name);
         }
     }
 }

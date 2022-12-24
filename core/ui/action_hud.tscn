@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://l263bon6q7ib"]
+[gd_scene load_steps=2 format=3 uid="uid://l263bon6q7ib"]
+
+[ext_resource type="Script" path="res://core/ui/ActionHud.cs" id="1_664oo"]
 
 [node name="ActionHUD" type="PanelContainer"]
 anchors_preset = 15
@@ -10,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+script = ExtResource("1_664oo")
 
 [node name="ActionList" type="ItemList" parent="."]
 layout_mode = 2

@@ -59,5 +59,5 @@ public partial class Marker : Node2D
     }
 
     public IActor GetActor() => Targets[_targetIndex] as IActor;
-	public IActor GetCharacter() => Targets[_targetIndex] as ICharacter;
+	public ICharacter GetCharacter() => Targets[_targetIndex] as ICharacter;
 }

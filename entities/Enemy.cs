@@ -5,7 +5,7 @@ using System;
 
 namespace Entities;
 
-public partial class Enemy : Actor
+public partial class Enemy : ActorBase
 {
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://kd48xavski73" path="res://entities/enemy.tscn" id="3_24mbn"]
 [ext_resource type="Script" path="res://core/CharacterHudHandler.cs" id="6_gs63o"]
 [ext_resource type="PackedScene" uid="uid://jm84bxp5ursp" path="res://character_hud.tscn" id="6_mdqt7"]
-[ext_resource type="PackedScene" uid="uid://l263bon6q7ib" path="res://core/ui/action_hud.tscn" id="7_v1hiy"]
+[ext_resource type="PackedScene" uid="uid://d1ygofvt464d8" path="res://core/ui/action_list.tscn" id="7_mhxhl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1vhja"]
 
@@ -48,7 +48,6 @@ position = Vector2(192, 416)
 position = Vector2(448, 352)
 
 [node name="StateInfoLabel" type="Label" parent="."]
-layout_mode = 0
 offset_left = 736.0
 offset_top = 96.0
 offset_right = 896.0
@@ -59,7 +58,6 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Character_HUDS" type="VBoxContainer" parent="."]
-layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -74,22 +72,32 @@ size_flags_vertical = 3
 script = ExtResource("6_gs63o")
 
 [node name="CharacterHUD" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-layout_mode = 2
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 170.0
+offset_bottom = 136.0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="CharacterHUD3" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-layout_mode = 2
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 140.0
+offset_right = 170.0
+offset_bottom = 276.0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="CharacterHUD2" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-layout_mode = 2
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 280.0
+offset_right = 170.0
+offset_bottom = 416.0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="InfoPanel" type="PanelContainer" parent="."]
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 96.0
@@ -99,15 +107,18 @@ offset_bottom = 64.0
 grow_horizontal = 2
 
 [node name="InfoLabel" type="Label" parent="InfoPanel"]
-layout_mode = 2
+offset_top = 3.0
+offset_right = 768.0
+offset_bottom = 29.0
 text = "What will PlayerName do?"
 label_settings = SubResource("LabelSettings_1vhja")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ActionHUD" parent="." instance=ExtResource("7_v1hiy")]
-layout_mode = 1
-offset_left = 544.0
-offset_top = 192.0
-offset_right = -480.0
-offset_bottom = -296.0
+[node name="ActionList" parent="." instance=ExtResource("7_mhxhl")]
+anchors_preset = -1
+anchor_left = 0.444444
+anchor_top = 0.197531
+anchor_right = 0.583333
+anchor_bottom = 0.592593
+metadata/_edit_use_anchors_ = true
