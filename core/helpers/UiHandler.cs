@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Entities;
 using Entities.Base;
+using Entities.Interfaces;
 using Godot;
 using Tools;
 
@@ -10,11 +11,9 @@ public static class UiHandler
 {
     public static Label InfoLabel { get; set; }
 	public static Label StateInfoLabel { get; set; }
-    public static Marker CreateMarker(List<ActorBase> targets, Node parent)
+    public static Marker CreateMarker(List<IActor> targets, Node parent)
     {
         var markerScene = (PackedScene)ResourceLoader.Load("res://tools/marker.tscn");
-
-		var targetActors = new List<ActorBase>();
 
         var marker = (Marker)markerScene.Instantiate();
         marker.Targets = targets;

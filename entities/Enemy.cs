@@ -1,22 +1,35 @@
+using System.Collections.Generic;
 using Constants;
+using Entities.Actions;
+using Entities.Actions.Interfaces;
 using Entities.Base;
+using Entities.Interfaces;
 using Godot;
-using System;
+using Helpers;
 
 namespace Entities;
 
 public partial class Enemy : ActorBase
 {
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        base._Ready();
-        AddToGroup(Groups.ENEMIES);
-        ActorName = "Enemy";
-    }
+	public override List<IAction> Actions { get; set; } = new() {
+        new Attack(),
+        new Defend(),
+        new Escape(),
+    };
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-    }
+    public override void _Ready()
+	{
+		base._Ready();
+		ActorName = "Enemy";
+		AddToGroup(Groups.ENEMIES);
+		GD.Print(ActorName + " has " + Actions.Count + " actions!");
+	}
+
+
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+
+	}
 }

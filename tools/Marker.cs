@@ -10,14 +10,12 @@ using System.Collections.Generic;
 namespace Tools;
 public partial class Marker : Node2D
 {
-    // Called when the node enters the scene tree for the first time.
-
-    public List<ActorBase> Targets { get; set; }
+    public List<IActor> Targets { get; set; }
     private int _targetIndex = 0;
 
     public override void _Ready()
     {
-        MarkTarget(Targets[_targetIndex]);
+        MarkTarget(Targets[_targetIndex] as ActorBase);
         if (FindChild("Anim") is AnimationPlayer animPlayer)
         {
             animPlayer.Play("bounce");
@@ -28,7 +26,7 @@ public partial class Marker : Node2D
     {
         var target = node as Node2D;
 
-        var targetPos = (target).Position;
+        var targetPos = target.Position;
         targetPos.y -= 100;
 
         Position = targetPos;
@@ -47,7 +45,7 @@ public partial class Marker : Node2D
         {
             _targetIndex = 0;
         }
-        MarkTarget(Targets[_targetIndex]);
+        MarkTarget(Targets[_targetIndex] as ActorBase);
     }
 
     public void PrevTarget()
@@ -58,9 +56,9 @@ public partial class Marker : Node2D
             _targetIndex = Targets.Count - 1;
         }
 
-        MarkTarget(Targets[_targetIndex]);
+        MarkTarget(Targets[_targetIndex] as ActorBase);
     }
 
     public IActor GetActor() => Targets[_targetIndex];
-	public ICharacter GetCharacter() => Targets[_targetIndex] as Character;
+    public ICharacter GetCharacter() => Targets[_targetIndex] as ICharacter;
 }

@@ -8,6 +8,8 @@ namespace UI;
 
 public partial class ActionList : PanelContainer
 {
+    private int _selectedIndex;
+
     public ItemList ItemList { get; private set; }
 
     // Called when the node enters the scene tree for the first time.
@@ -32,5 +34,36 @@ public partial class ActionList : PanelContainer
         {
             ItemList.AddItem(action.Name);
         }
+
+		_selectedIndex = 0;
+
+        Focus();
+    }
+
+    public void Focus()
+    {
+        ItemList.Select(0);
+    }
+
+    public void NextItem()
+    {
+        _selectedIndex++;
+        if (_selectedIndex > ItemList.ItemCount - 1)
+        {
+            _selectedIndex = 0;
+        }
+
+			ItemList.Select(_selectedIndex);
+    }
+
+    public void PrevItem()
+    {
+        _selectedIndex--;
+        if (_selectedIndex < 0)
+        {
+            _selectedIndex = ItemList.ItemCount - 1;
+        }
+
+		ItemList.Select(_selectedIndex);
     }
 }

@@ -11,10 +11,13 @@ namespace Entities;
 
 public partial class Character : ActorBase, ICharacter
 {
-	public List<IAction> Actions { get; set; } = new() {
+	public override List<IAction> Actions { get; set; } = new() {
         new Attack(),
         new Defend(),
         new UseItem(),
+		new Escape(),
+		new Escape(),
+		new Escape(),
 		new Escape(),
     };
 
