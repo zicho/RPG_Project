@@ -12,7 +12,7 @@ public partial class Marker : Node2D
 {
     // Called when the node enters the scene tree for the first time.
 
-    public List<Character> Targets { get; set; }
+    public List<ActorBase> Targets { get; set; }
     private int _targetIndex = 0;
 
     public override void _Ready()
@@ -62,5 +62,5 @@ public partial class Marker : Node2D
     }
 
     public IActor GetActor() => Targets[_targetIndex];
-	public Character GetCharacter() => Targets[_targetIndex] as Character;
+	public ICharacter GetCharacter() => Targets[_targetIndex] as Character;
 }

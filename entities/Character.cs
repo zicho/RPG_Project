@@ -3,17 +3,19 @@ using Constants;
 using Entities.Actions;
 using Entities.Actions.Interfaces;
 using Entities.Base;
+using Entities.Interfaces;
 using Godot;
 using Helpers;
 
 namespace Entities;
 
-public partial class Character : ActorBase
+public partial class Character : ActorBase, ICharacter
 {
 	public List<IAction> Actions { get; set; } = new() {
         new Attack(),
         new Defend(),
-        new UseItem()
+        new UseItem(),
+		new Escape(),
     };
 
     public override void _Ready()

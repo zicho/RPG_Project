@@ -16,7 +16,7 @@ public partial class MainBattleHandler : Control
 	// public BattleStateEnum BattleState { get; set; } = BattleStateEnum.SelectCharacter;
 
 	private Marker _marker;
-	private Character _activeCharacter;
+	private ICharacter _activeCharacter;
 	private ActionList _actionList;
 
 	public FiniteStateMachine<BattleStateEnum> BattleUiState { get; private set; }
@@ -59,10 +59,10 @@ public partial class MainBattleHandler : Control
 		var players = GetTree().GetNodesInGroup(Groups.CHARACTERS);
 		EmitSignal(nameof(AddCharactersToHud), players);
 
-		var selectableActors  = new List<Character>();
+		var selectableActors  = new List<ActorBase>();
 
 		foreach(var c in GetTree().GetNodesInGroup(Groups.CHARACTERS)) {
-			var actor = c as Character;
+			var actor = c as ActorBase;
 			GD.Print("Main: " + actor.Actions.Count);
 			selectableActors.Add(actor);
 		}
@@ -104,6 +104,7 @@ public partial class MainBattleHandler : Control
 		if (Input.IsActionJustPressed("ui_cancel"))
 		{
 			BattleUiState.GoBackToPrevState();
+            _actionList.Visible = false;
 		}
 
 		// if (Input.IsActionJustPressed("ui_cancel"))

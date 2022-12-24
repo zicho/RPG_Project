@@ -10,7 +10,7 @@ public static class UiHandler
 {
     public static Label InfoLabel { get; set; }
 	public static Label StateInfoLabel { get; set; }
-    public static Marker CreateMarker(List<Character> targets, Node parent)
+    public static Marker CreateMarker(List<ActorBase> targets, Node parent)
     {
         var markerScene = (PackedScene)ResourceLoader.Load("res://tools/marker.tscn");
 
