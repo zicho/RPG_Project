@@ -36,9 +36,6 @@ public class FiniteStateMachine<T> where T : Enum
 
         if (addToHistory) History.Add(new StateHistory(newState, infoText));
         UiHandler.SetStateInfoText(_currentState.ToString());
-
-        // GD.Print("State is " + _currentState);
-        // GD.Print("State history " + History.Count);
     }
 
     public void SetState(StateHistory history, bool addToHistory = true)
@@ -61,10 +58,7 @@ public class FiniteStateMachine<T> where T : Enum
     public void GoBackToPrevState()
     {
         if(History.Count == 1) return;
-        GD.Print("Going back!");
-        GD.Print("State history " + History.Count);
         History.RemoveAt(History.Count - 1);
-        GD.Print("State history " + History.Count);
         SetState(History[^1], addToHistory: false);
     }
 
