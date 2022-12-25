@@ -1,3 +1,5 @@
+using System;
+
 namespace Entities.Actions.Interfaces;
 
 public interface IAction
