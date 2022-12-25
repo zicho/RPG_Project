@@ -3,7 +3,7 @@ using Godot;
 using UI;
 
 namespace Core;
-public partial class CharacterHudHandler : VBoxContainer, ICharacterHUD
+public partial class CharacterHudHandler : VBoxContainer
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -32,10 +32,5 @@ public partial class CharacterHudHandler : VBoxContainer, ICharacterHUD
     		AddChild(hud);
 			hud.SetupHud(character);
 		}
-    }
-
-    public void AddCharacter(Character character)
-    {
-        throw new System.NotImplementedException();
     }
 }

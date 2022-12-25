@@ -33,95 +33,96 @@ metadata/_edit_lock_ = true
 [node name="Players" type="Node2D" parent="Scene"]
 
 [node name="Character" parent="Scene/Players" instance=ExtResource("2_v8ycr")]
-position = Vector2(736, 288)
+position = Vector2(672, 288)
 
 [node name="Character2" parent="Scene/Players" instance=ExtResource("2_v8ycr")]
-position = Vector2(736, 416)
+position = Vector2(672, 416)
 
 [node name="Character3" parent="Scene/Players" instance=ExtResource("2_v8ycr")]
-position = Vector2(832, 320)
+position = Vector2(768, 288)
+
+[node name="Character4" parent="Scene/Players" instance=ExtResource("2_v8ycr")]
+position = Vector2(768, 416)
 
 [node name="Enemy" parent="Scene" instance=ExtResource("3_24mbn")]
-position = Vector2(256, 256)
+position = Vector2(192, 256)
 
 [node name="Enemy2" parent="Scene" instance=ExtResource("3_24mbn")]
-position = Vector2(192, 416)
+position = Vector2(128, 416)
 
 [node name="Enemy3" parent="Scene" instance=ExtResource("3_24mbn")]
-position = Vector2(448, 352)
+position = Vector2(320, 352)
 
 [node name="StateInfoLabel" type="Label" parent="."]
-offset_left = 736.0
-offset_top = 96.0
-offset_right = 896.0
-offset_bottom = 122.0
+layout_mode = 0
+offset_left = 960.0
+offset_top = 608.0
+offset_right = 1120.0
+offset_bottom = 640.0
 text = "State"
 label_settings = SubResource("LabelSettings_1vhja")
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Character_HUDS" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -208.0
-offset_bottom = 208.0
+offset_left = -192.0
+offset_top = -228.0
+offset_bottom = 220.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("6_gs63o")
 
 [node name="CharacterHUD" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_right = 170.0
-offset_bottom = 136.0
+layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
 [node name="CharacterHUD3" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 140.0
-offset_right = 170.0
-offset_bottom = 276.0
-size_flags_horizontal = 1
+layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.78
+
+[node name="CharacterName" parent="Character_HUDS/CharacterHUD3/MarginContainer/Rows/NameContainer" index="1"]
+text = "shrtNmn
+"
 
 [node name="CharacterHUD2" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 280.0
-offset_right = 170.0
-offset_bottom = 416.0
+layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
 
 [node name="InfoPanel" type="PanelContainer" parent="."]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 96.0
+offset_left = 192.0
 offset_top = 32.0
-offset_right = -288.0
+offset_right = -384.0
 offset_bottom = 64.0
 grow_horizontal = 2
 
 [node name="InfoLabel" type="Label" parent="InfoPanel"]
-offset_top = 3.0
-offset_right = 768.0
-offset_bottom = 29.0
+layout_mode = 2
 text = "What will PlayerName do?"
 label_settings = SubResource("LabelSettings_1vhja")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ActionList" parent="." instance=ExtResource("7_mhxhl")]
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.444444
-anchor_top = 0.197531
-anchor_right = 0.583333
-anchor_bottom = 0.592593
+anchor_left = 0.722222
+anchor_top = 0.148148
+anchor_right = 0.833333
+anchor_bottom = 0.839506
 metadata/_edit_use_anchors_ = true
+
+[editable path="Character_HUDS/CharacterHUD3"]

@@ -35,7 +35,7 @@ public partial class ActionList : PanelContainer
             ItemList.AddItem(action.Name);
         }
 
-		_selectedIndex = 0;
+        _selectedIndex = 0;
 
         Focus();
     }
@@ -53,7 +53,7 @@ public partial class ActionList : PanelContainer
             _selectedIndex = 0;
         }
 
-			ItemList.Select(_selectedIndex);
+        ItemList.Select(_selectedIndex);
     }
 
     public void PrevItem()
@@ -64,6 +64,6 @@ public partial class ActionList : PanelContainer
             _selectedIndex = ItemList.ItemCount - 1;
         }
 
-		ItemList.Select(_selectedIndex);
+        ItemList.Select(_selectedIndex);
     }
 }

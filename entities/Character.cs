@@ -16,9 +16,6 @@ public partial class Character : ActorBase, ICharacter
         new Defend(),
         new UseItem(),
 		new Escape(),
-		new Escape(),
-		new Escape(),
-		new Escape(),
     };
 
     public override void _Ready()

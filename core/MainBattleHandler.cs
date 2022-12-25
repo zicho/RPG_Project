@@ -19,6 +19,8 @@ public partial class MainBattleHandler : Control
     private IActor _activeCharacter;
     private ActionList _actionList;
 
+    public event EventHandler<IActor> ActiveCharacterChangedEventHandler;
+
     public FiniteStateMachine<BattleStateEnum> BattleUiState { get; private set; }
 
     public enum BattleStateEnum
@@ -33,7 +35,7 @@ public partial class MainBattleHandler : Control
 
     public override void _Ready()
     {
-        var hud = GetNode<VBoxContainer>("Character_HUDS");
+        var hudContainer = GetNode<VBoxContainer>("Character_HUDS");
 
         if (FindChild("InfoLabel") is Label infoLabel)
         {
@@ -58,23 +60,28 @@ public partial class MainBattleHandler : Control
 
         BattleUiState.StateChangedEventHandler += OnBattleStateChanged;
 
-        Connect(nameof(AddCharactersToHud), new Callable(hud, nameof(ICharacterHUD.OnBattleStart)));
+        Connect(nameof(AddCharactersToHud), new Callable(hudContainer, nameof(CharacterHudHandler.OnBattleStart)));
         var players = GetTree().GetNodesInGroup(Groups.CHARACTERS);
         EmitSignal(nameof(AddCharactersToHud), players);
 
+        foreach (var charHud in hudContainer.GetChildren().Cast<CharacterHud>())
+        {
+            ActiveCharacterChangedEventHandler += charHud.OnActiveCharacterChanged;
+        }
+
         _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.CHARACTERS), this);
+        ActiveCharacterChangedEventHandler.Invoke(this, _marker.GetActor());
     }
 
     private void OnBattleStateChanged(object sender, BattleStateEnum e)
     {
         if (e == BattleStateEnum.SelectCharacter)
         {
-            GD.Print("Choose character phase");
-            RemoveChild(_marker);
-            _actionList.Visible = false;
             _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.CHARACTERS), this);
+            ActiveCharacterChangedEventHandler.Invoke(this, _marker.GetActor());
+            GD.Print("Choose character phase");
+            _actionList.Visible = false;
         }
-
         else if (e == BattleStateEnum.WaitingForCharacterAction)
         {
             GD.Print("Choose action phase");
@@ -86,7 +93,6 @@ public partial class MainBattleHandler : Control
         {
             _actionList.Visible = false;
             GD.Print("Choose enemy phase");
-            RemoveChild(_marker);
             _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.ENEMIES), this);
         }
     }
@@ -96,13 +102,17 @@ public partial class MainBattleHandler : Control
     {
         if (BattleUiState.CurrentState == BattleStateEnum.SelectCharacter)
         {
-            if (Input.IsActionJustPressed("ui_left"))
+            if (Input.IsActionJustPressed("ui_right"))
             {
                 _marker.NextTarget();
+                GD.Print("Changing character!");
+                ActiveCharacterChangedEventHandler.Invoke(this, _marker.GetActor());
             }
-            else if (Input.IsActionJustPressed("ui_right"))
+            else if (Input.IsActionJustPressed("ui_left"))
             {
                 _marker.PrevTarget();
+                GD.Print("Changing character!");
+                ActiveCharacterChangedEventHandler.Invoke(this, _marker.GetActor());
             }
 
             if (Input.IsActionJustPressed("ui_accept"))
@@ -129,11 +139,11 @@ public partial class MainBattleHandler : Control
 
         else if (BattleUiState.CurrentState == BattleStateEnum.ChooseAttackTarget)
         {
-            if (Input.IsActionJustPressed("ui_left"))
+            if (Input.IsActionJustPressed("ui_right"))
             {
                 _marker.NextTarget();
             }
-            else if (Input.IsActionJustPressed("ui_right"))
+            else if (Input.IsActionJustPressed("ui_left"))
             {
                 _marker.PrevTarget();
             }

@@ -3,7 +3,7 @@ using Entities.Actions.Interfaces;
 
 namespace Entities.Actions;
 
-public class Defend : IAction
+public class Defend : ActionBase, IAction
 {
     public string Name { get => ActionNames.DEFEND; }
 }
