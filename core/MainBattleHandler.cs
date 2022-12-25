@@ -24,7 +24,8 @@ public partial class MainBattleHandler : Control
     public enum BattleStateEnum
     {
         SelectCharacter,
-        WaitingForCharacterAction
+        WaitingForCharacterAction,
+        ChooseAttackTarget
     }
 
     [Signal]
@@ -55,20 +56,39 @@ public partial class MainBattleHandler : Control
 
         BattleUiState = new FiniteStateMachine<BattleStateEnum>(BattleStateEnum.SelectCharacter, InfoMessages.CHOOSE_CHARACTER);
 
+        BattleUiState.StateChangedEventHandler += OnBattleStateChanged;
+
         Connect(nameof(AddCharactersToHud), new Callable(hud, nameof(ICharacterHUD.OnBattleStart)));
         var players = GetTree().GetNodesInGroup(Groups.CHARACTERS);
         EmitSignal(nameof(AddCharactersToHud), players);
 
-        var selectableActors = new List<IActor>();
+        _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.CHARACTERS), this);
+    }
 
-        foreach (var c in GetTree().GetNodesInGroup(Groups.CHARACTERS))
+    private void OnBattleStateChanged(object sender, BattleStateEnum e)
+    {
+        if (e == BattleStateEnum.SelectCharacter)
         {
-            var actor = c as IActor;
-            GD.Print("Main: " + actor.Actions.Count);
-            selectableActors.Add(actor);
+            GD.Print("Choose character phase");
+            RemoveChild(_marker);
+            _actionList.Visible = false;
+            _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.CHARACTERS), this);
         }
 
-        _marker = UiHandler.CreateMarker(selectableActors, this);
+        else if (e == BattleStateEnum.WaitingForCharacterAction)
+        {
+            GD.Print("Choose action phase");
+            _actionList.Visible = true;
+            _marker.Visible = false;
+            _actionList.SetActions(_activeCharacter.Actions);
+        }
+        else if (e == BattleStateEnum.ChooseAttackTarget)
+        {
+            _actionList.Visible = false;
+            GD.Print("Choose enemy phase");
+            RemoveChild(_marker);
+            _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.ENEMIES), this);
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -89,8 +109,6 @@ public partial class MainBattleHandler : Control
             {
                 _activeCharacter = _marker.GetActor();
                 BattleUiState.SetState(BattleStateEnum.WaitingForCharacterAction, string.Format(InfoMessages.CHARACTER_ACTION_QUERY, _activeCharacter.ActorName));
-                _actionList.Visible = true;
-                _actionList.SetActions(_activeCharacter.Actions);
             }
         }
         else if (BattleUiState.CurrentState == BattleStateEnum.WaitingForCharacterAction)
@@ -105,15 +123,25 @@ public partial class MainBattleHandler : Control
             }
             else if (Input.IsActionJustPressed("ui_accept"))
             {
-                // _actionList.ChooseAction();
-                UiHandler.CreateMarker();
+                BattleUiState.SetState(BattleStateEnum.ChooseAttackTarget, InfoMessages.CHOOSE_ATTACK_TARGET);
+            }
+        }
+
+        else if (BattleUiState.CurrentState == BattleStateEnum.ChooseAttackTarget)
+        {
+            if (Input.IsActionJustPressed("ui_left"))
+            {
+                _marker.NextTarget();
+            }
+            else if (Input.IsActionJustPressed("ui_right"))
+            {
+                _marker.PrevTarget();
             }
         }
 
         if (Input.IsActionJustPressed("ui_cancel"))
         {
             BattleUiState.GoBackToPrevState();
-            _actionList.Visible = false;
         }
 
         // if (Input.IsActionJustPressed("ui_cancel"))

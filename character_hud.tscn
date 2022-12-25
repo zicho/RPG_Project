@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://jm84bxp5ursp"]
+[gd_scene load_steps=3 format=3 uid="uid://jm84bxp5ursp"]
 
 [ext_resource type="Script" path="res://core/ui/CharacterHud.cs" id="1_nboot"]
+
+[sub_resource type="Theme" id="Theme_7m8xv"]
 
 [node name="CharacterHud" type="PanelContainer"]
 anchors_preset = -1
@@ -10,12 +12,11 @@ offset_right = -0.640015
 offset_bottom = 0.0399933
 size_flags_horizontal = 8
 size_flags_vertical = 4
+theme = SubResource("Theme_7m8xv")
 script = ExtResource("1_nboot")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-offset_top = 60.0
-offset_right = 512.0
-offset_bottom = 196.0
+layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -23,77 +24,53 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Rows" type="VBoxContainer" parent="MarginContainer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 502.0
-offset_bottom = 126.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
 [node name="NameContainer" type="BoxContainer" parent="MarginContainer/Rows"]
-offset_right = 492.0
-offset_bottom = 26.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="NameLabel" type="Label" parent="MarginContainer/Rows/NameContainer"]
-offset_right = 51.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "Name:"
 
 [node name="CharacterName" type="Label" parent="MarginContainer/Rows/NameContainer"]
-offset_left = 55.0
-offset_right = 150.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "PlayerName
 "
 
 [node name="HealthContainer" type="BoxContainer" parent="MarginContainer/Rows"]
-offset_top = 30.0
-offset_right = 492.0
-offset_bottom = 56.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HP_Label" type="Label" parent="MarginContainer/Rows/HealthContainer"]
-offset_right = 27.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "HP:"
 
 [node name="Character_HP" type="Label" parent="MarginContainer/Rows/HealthContainer"]
-offset_left = 31.0
-offset_right = 101.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "100 / 100"
 
 [node name="HealthContainer2" type="BoxContainer" parent="MarginContainer/Rows"]
-offset_top = 60.0
-offset_right = 492.0
-offset_bottom = 86.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HP_Label" type="Label" parent="MarginContainer/Rows/HealthContainer2"]
-offset_right = 27.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "HP:"
 
 [node name="Character_HP" type="Label" parent="MarginContainer/Rows/HealthContainer2"]
-offset_left = 31.0
-offset_right = 101.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "100 / 100"
 
 [node name="HealthContainer3" type="BoxContainer" parent="MarginContainer/Rows"]
-offset_top = 90.0
-offset_right = 492.0
-offset_bottom = 116.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HP_Label" type="Label" parent="MarginContainer/Rows/HealthContainer3"]
-offset_right = 27.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "HP:"
 
 [node name="Character_HP" type="Label" parent="MarginContainer/Rows/HealthContainer3"]
-offset_left = 31.0
-offset_right = 101.0
-offset_bottom = 26.0
+layout_mode = 2
 text = "100 / 100"

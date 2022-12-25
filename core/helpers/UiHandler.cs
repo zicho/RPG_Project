@@ -11,9 +11,11 @@ public static class UiHandler
 {
     public static Label InfoLabel { get; set; }
 	public static Label StateInfoLabel { get; set; }
-    public static Marker CreateMarker(List<IActor> targets, Node parent)
+    public static Marker CreateMarker(Godot.Collections.Array<Node> nodes, Node parent)
     {
         var markerScene = (PackedScene)ResourceLoader.Load("res://tools/marker.tscn");
+
+		var targets = NodeHelper<IActor>.NodesToType(nodes);
 
         var marker = (Marker)markerScene.Instantiate();
         marker.Targets = targets;

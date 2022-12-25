@@ -10,6 +10,7 @@ public class FiniteStateMachine<T> where T : Enum
 {
     private T _currentState;
     private string _infoText;
+    public event EventHandler<T> StateChangedEventHandler;
 
     public T CurrentState
     {
@@ -29,6 +30,7 @@ public class FiniteStateMachine<T> where T : Enum
         }
     }
 
+
     public void SetState(T newState, string infoText, bool addToHistory = true)
     {
         CurrentState = newState;
@@ -36,6 +38,7 @@ public class FiniteStateMachine<T> where T : Enum
 
         if (addToHistory) History.Add(new StateHistory(newState, infoText));
         UiHandler.SetStateInfoText(_currentState.ToString());
+        StateChangedEventHandler?.Invoke(this, CurrentState);
     }
 
     public void SetState(StateHistory history, bool addToHistory = true)
