@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c016o7qv7613b"]
+
+[ext_resource type="Script" path="res://core/ui/ActionListHud.cs" id="1_va3io"]
+
+[node name="ActionListHud" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_va3io")
+
+[node name="ItemList" type="ItemList" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0

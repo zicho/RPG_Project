@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://kd48xavski73" path="res://entities/enemy.tscn" id="3_24mbn"]
 [ext_resource type="Script" path="res://core/CharacterHudHandler.cs" id="6_gs63o"]
 [ext_resource type="PackedScene" uid="uid://jm84bxp5ursp" path="res://character_hud.tscn" id="6_mdqt7"]
-[ext_resource type="PackedScene" uid="uid://d1ygofvt464d8" path="res://core/ui/action_list.tscn" id="7_mhxhl"]
+[ext_resource type="PackedScene" uid="uid://c016o7qv7613b" path="res://core/ui/action_list_hud.tscn" id="7_medof"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1vhja"]
 
@@ -89,10 +89,6 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.78
 
-[node name="CharacterName" parent="Character_HUDS/CharacterHUD3/MarginContainer/Rows/NameContainer" index="1"]
-text = "shrtNmn
-"
-
 [node name="CharacterHUD2" parent="Character_HUDS" instance=ExtResource("6_mdqt7")]
 layout_mode = 2
 size_flags_horizontal = 1
@@ -116,13 +112,7 @@ label_settings = SubResource("LabelSettings_1vhja")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ActionList" parent="." instance=ExtResource("7_mhxhl")]
+[node name="ActionListHud" parent="." instance=ExtResource("7_medof")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.722222
-anchor_top = 0.148148
-anchor_right = 0.833333
-anchor_bottom = 0.839506
-metadata/_edit_use_anchors_ = true
-
-[editable path="Character_HUDS/CharacterHUD3"]
+offset_left = 832.0
+offset_right = -192.0

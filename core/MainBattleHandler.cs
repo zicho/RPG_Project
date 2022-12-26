@@ -17,11 +17,13 @@ public partial class MainBattleHandler : Control
 
     private Marker _marker;
     private IActor _activeCharacter;
-    private ActionList _actionList;
+    private ActionListHud _actionList;
 
     public event EventHandler<IActor> ActiveCharacterChangedEventHandler;
 
     public FiniteStateMachine<BattleStateEnum> BattleUiState { get; private set; }
+
+    public event EventHandler PerformCommandEventHandler;
 
     public enum BattleStateEnum
     {
@@ -50,7 +52,7 @@ public partial class MainBattleHandler : Control
             UiHandler.SetStateInfoText(nameof(BattleStateEnum.SelectCharacter));
         }
 
-        if (FindChild("ActionList") is ActionList actionList)
+        if (FindChild("ActionListHud") is ActionListHud actionList)
         {
             _actionList = actionList;
             _actionList.Visible = false;
@@ -87,11 +89,14 @@ public partial class MainBattleHandler : Control
             GD.Print("Choose action phase");
             _actionList.Visible = true;
             _marker.Visible = false;
+            GD.Print(_activeCharacter.Actions);
             _actionList.SetActions(_activeCharacter.Actions);
+            
         }
         else if (e == BattleStateEnum.ChooseAttackTarget)
         {
             _actionList.Visible = false;
+            GD.Print(_actionList.SelectedAction);
             GD.Print("Choose enemy phase");
             _marker = UiHandler.CreateMarker(GetTree().GetNodesInGroup(Groups.ENEMIES), this);
         }
@@ -134,6 +139,7 @@ public partial class MainBattleHandler : Control
             else if (Input.IsActionJustPressed("ui_accept"))
             {
                 BattleUiState.SetState(BattleStateEnum.ChooseAttackTarget, InfoMessages.CHOOSE_ATTACK_TARGET);
+
             }
         }
 
@@ -153,18 +159,5 @@ public partial class MainBattleHandler : Control
         {
             BattleUiState.GoBackToPrevState();
         }
-
-        // if (Input.IsActionJustPressed("ui_cancel"))
-        // {
-        //     if (BattleState == BattleStateEnum.Selecting)
-        //     {
-        //         BattleState = BattleStateEnum.Waiting;
-        //         RemoveChild(_marker);
-        //     }
-        //     else
-        //     {
-        //         GetTree().Quit();
-        //     }
-        // }
     }
 }
